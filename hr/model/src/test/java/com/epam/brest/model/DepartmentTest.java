@@ -1,0 +1,22 @@
+package com.epam.brest.model;
+
+import com.epam.brest.Department;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class DepartmentTest {
+
+    @Test
+    public void getDepartmentNameConstructor() {
+        Department department = new Department("IT");
+        assertEquals("IT",department.getDepartmentName());
+    }
+
+    @Test
+    public void getDepartmentNameSetter() {
+        Department department = new Department("IT");
+        department.setDepartmentName("HR");
+        assertEquals("HR",department.getDepartmentName());
+    }
+}

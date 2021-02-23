@@ -12,4 +12,9 @@
         <property name="username" value="sa"/>
         <property name="password" value="password"/>
     </bean>
+
+    <jdbc:initialize-database>
+        <jdbc:script location="classpath:create-test-db.sql"/>
+    </jdbc:initialize-database>
+
 </beans>

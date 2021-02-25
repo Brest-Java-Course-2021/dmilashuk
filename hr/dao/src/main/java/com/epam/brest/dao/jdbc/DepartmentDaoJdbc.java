@@ -2,28 +2,34 @@ package com.epam.brest.dao.jdbc;
 
 import com.epam.brest.Department;
 import com.epam.brest.dao.DepartmentDao;
-import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class DepartmentDaoJdbc implements DepartmentDao {
 
-    NamedParameterJdbcTemplate template;
+    private static final String SQL_GET_ALL_DEPARTMENTS =
+            "SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME FROM DEPARTMENT AS D ORDER BY D.DEPARTMENT_NAME";
 
-    private static final String SQL_GET_DEPARTMENTS = "SELECT D.DEPARTMENT_ID,D.DEPARTMENT_NAME FROM DEPARTMENT AS d ORDER BY D.DEPARTMENT_NAME";
+    private static final String SQL_FIND_DEPARTMENT_BY_ID = "SELECT * FROM DEPARTMENT WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
 
-    private static final String SQL_FIND_DEPARTMENT_BY_ID = "SELECT * FROM DEPARTMENT WHERE DEPARTMENT_ID = :id";
+    private static final String SQL_CREATE_DEPARTMENT = "INSERT INTO DEPARTMENT (DEPARTMENT_NAME) VALUES (:DEPARTMENT_NAME)";
 
-    private static final String SQL_ADD_DEPARTMENT = "INSERT INTO DEPARTMENT (DEPARTMENT_NAME) VALUES (:department_name)";
+    private static final String SQL_DELETE_DEPARTMENT = "DELETE FROM DEPARTMENT WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
 
-    private static final String SQL_DELETE_DEPARTMENT = "DELETE FROM DEPARTMENT WHERE DEPARTMENT_ID = :id";
+    private static final String SQL_UPDATE_DEPARTMENT = "UPDATE DEPARTMENT SET DEPARTMENT_NAME = :DEPARTMENT_NAME WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
 
-    private static final String SQL_UPDATE_DEPARTMENT = "UPDATE DEPARTMENT SET DEPARTMENT_NAME = :department_name WHERE DEPARTMENT_ID = :id";
+    private final NamedParameterJdbcTemplate template;
+
+    private final RowMapper<Department> rowMapper = BeanPropertyRowMapper.newInstance(Department.class);
 
     public DepartmentDaoJdbc(NamedParameterJdbcTemplate template){
         this.template = template;
@@ -31,60 +37,46 @@ public class DepartmentDaoJdbc implements DepartmentDao {
 
     @Override
     public List<Department> findAll() {
-        return template.query(SQL_GET_DEPARTMENTS,new DepartmentRowMapper());
+        return template.query(SQL_GET_ALL_DEPARTMENTS,rowMapper);
     }
 
     @Override
-    public Department findById(int id){
-        return template.queryForObject(SQL_FIND_DEPARTMENT_BY_ID,new MapSqlParameterSource("id",id), new DepartmentRowMapper());
+    public Optional<Department> findById(Integer departmentId){
+
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("DEPARTMENT_ID", departmentId);
+        return Optional.ofNullable(template.queryForObject(SQL_FIND_DEPARTMENT_BY_ID,sqlParameterSource, rowMapper));
+
     }
 
     @Override
-    public boolean add (Department department) {
-        MapSqlParameterSource parameterSource = new MapSqlParameterSource("department_name",department.getDepartmentName());
-        try {
-            template.update(SQL_ADD_DEPARTMENT, parameterSource);
-        }catch (DataAccessException e){
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+    public Integer create (Department department) {
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("DEPARTMENT_NAME", department.getDepartmentName());
+        template.update(SQL_CREATE_DEPARTMENT, sqlParameterSource, keyHolder);
+
+        return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
     @Override
-    public boolean deleteById(int department_id) {
-        MapSqlParameterSource parameterSource = new MapSqlParameterSource("id",department_id);
-        try {
-            template.update(SQL_DELETE_DEPARTMENT,parameterSource);
-        }catch (DataAccessException e){
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+    public Integer delete(Integer department_id) {
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource("DEPARTMENT_ID",department_id);
+        template.update(SQL_DELETE_DEPARTMENT, parameterSource, keyHolder);
+
+        return department_id;
     }
 
     @Override
-    public boolean updateById(int department_id, Department department) {
+    public Integer update(Department department){
+
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("department_name",department.getDepartmentName());
-        parameterSource.addValue("id",department_id);
-        try {
-            template.update(SQL_UPDATE_DEPARTMENT,parameterSource);
-        }catch (DataAccessException e){
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
 
-    private static class DepartmentRowMapper implements RowMapper<Department>{
-        @Override
-        public Department mapRow(ResultSet resultSet, int i) throws SQLException {
-            Department department = new Department();
-            department.setId(resultSet.getInt("DEPARTMENT_ID"));
-            department.setDepartmentName(resultSet.getString("DEPARTMENT_NAME"));
-            return department;
-        }
-    }
+        parameterSource.addValue("DEPARTMENT_NAME",department.getDepartmentName());
+        parameterSource.addValue("DEPARTMENT_ID",department.getDepartmentId());
+        template.update(SQL_UPDATE_DEPARTMENT,parameterSource);
 
+        return department.getDepartmentId();
+    }
 }

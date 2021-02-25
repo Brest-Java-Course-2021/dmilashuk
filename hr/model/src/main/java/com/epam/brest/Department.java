@@ -2,7 +2,7 @@ package com.epam.brest;
 
 public class Department {
 
-    private Integer id;
+    private Integer departmentId;
 
     private String departmentName;
 
@@ -14,12 +14,12 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getDepartmentId() {
+        return departmentId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getDepartmentName() {
@@ -33,7 +33,7 @@ public class Department {
     @Override
     public String toString() {
         return "Department{" +
-                "id=" + id +
+                "id=" + departmentId +
                 ", departmentName='" + departmentName + '\'' +
                 '}';
     }

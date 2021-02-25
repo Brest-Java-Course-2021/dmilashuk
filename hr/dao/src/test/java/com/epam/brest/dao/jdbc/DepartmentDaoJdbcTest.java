@@ -42,7 +42,7 @@ public class DepartmentDaoJdbcTest {
                     executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
     public void findByIdTest() {
-        assertEquals(Integer.valueOf(2),departmentDao.findById(2).getId());
+        assertEquals(Integer.valueOf(2), departmentDao.findById(2).orElseThrow().getDepartmentId());
     }
 
     @Test
@@ -52,11 +52,11 @@ public class DepartmentDaoJdbcTest {
             @Sql(value = "classpath:clean-up-test-db.sql",
                     executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
-    public void addTest() {
+    public void createTest() {
         Department newDepartment = new Department("New department");
-        assertTrue(departmentDao.add(newDepartment));
+        assertEquals(Integer.valueOf(4), departmentDao.create(newDepartment));
         assertEquals(4,departmentDao.findAll().size());
-        assertEquals(newDepartment.getDepartmentName(),departmentDao.findById(4).getDepartmentName());
+        assertEquals(newDepartment.getDepartmentName(),departmentDao.findById(4).get().getDepartmentName());
     }
 
     @Test
@@ -66,8 +66,8 @@ public class DepartmentDaoJdbcTest {
             @Sql(value = "classpath:clean-up-test-db.sql",
                     executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
-    public void deleteByIdTest() {
-        assertTrue(departmentDao.deleteById(3));
+    public void deleteTest() {
+        assertEquals(Integer.valueOf(3),departmentDao.delete(3));
         assertEquals(2,departmentDao.findAll().size());
     }
 
@@ -78,9 +78,11 @@ public class DepartmentDaoJdbcTest {
             @Sql(value = "classpath:clean-up-test-db.sql",
                     executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
-    public void updateByIdTest() {
+    public void updateTest() {
         Department departmentForUpdating = new Department("Updated department");
-        assertTrue(departmentDao.updateById(3,departmentForUpdating));
-        assertEquals(departmentForUpdating.getDepartmentName(),departmentDao.findById(3).getDepartmentName());
+        departmentForUpdating.setDepartmentId(3);
+        assertEquals(Integer.valueOf(3),departmentDao.update(departmentForUpdating));
+        assertEquals(departmentForUpdating.getDepartmentName(),departmentDao.findById(3).get().getDepartmentName());
     }
+
 }

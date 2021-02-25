@@ -3,11 +3,14 @@ package com.epam.brest.dao;
 import com.epam.brest.Department;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DepartmentDao {
+
     List<Department> findAll();
-    Department findById(int department_id);
-    boolean add(Department department);
-    boolean deleteById(int department_id);
-    boolean updateById(int department_id, Department department);
+    Optional<Department> findById(Integer departmentId);
+    Integer create(Department department);
+    Integer update(Department department);
+    Integer delete(Integer departmentId);
+
 }

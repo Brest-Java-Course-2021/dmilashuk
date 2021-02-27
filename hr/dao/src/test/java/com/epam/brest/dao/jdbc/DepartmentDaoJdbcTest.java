@@ -4,6 +4,8 @@ import com.epam.brest.Department;
 import com.epam.brest.dao.DepartmentDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -17,6 +19,8 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:test-dao.xml","classpath:test-db.xml"})
 public class DepartmentDaoJdbcTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentDaoJdbcTest.class);
 
     @Autowired
     private DepartmentDao departmentDao;

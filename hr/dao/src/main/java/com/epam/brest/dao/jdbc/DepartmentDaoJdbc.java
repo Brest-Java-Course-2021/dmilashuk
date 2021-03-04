@@ -1,7 +1,7 @@
 package com.epam.brest.dao.jdbc;
 
 import com.epam.brest.Department;
-import com.epam.brest.dao.DepartmentDao;
+import com.epam.brest.daoApi.DepartmentDao;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -13,6 +13,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 
 public class DepartmentDaoJdbc implements DepartmentDao {
 

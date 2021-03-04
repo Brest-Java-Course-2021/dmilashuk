@@ -1,7 +1,7 @@
 package com.epam.brest.dao.jdbc;
 
 import com.epam.brest.Department;
-import com.epam.brest.dao.DepartmentDao;
+import com.epam.brest.daoApi.DepartmentDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

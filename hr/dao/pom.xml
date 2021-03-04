@@ -22,6 +22,10 @@
             <artifactId>test-db</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.epam.brest</groupId>
+            <artifactId>dao-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>

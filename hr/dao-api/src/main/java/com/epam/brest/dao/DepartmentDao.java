@@ -1,15 +1,16 @@
-package service;
+package com.epam.brest.dao;
 
-
-
-import com.epam.brest.Department;
+import com.epam.brest.model.Department;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-public interface DepartmentService {
+public interface DepartmentDao {
 
     List<Department> findAll();
+
+    Map<Department, Double> findWithAverageSalary();
 
     Optional<Department> findById(Integer departmentId);
 
@@ -18,4 +19,5 @@ public interface DepartmentService {
     Integer update(Department department);
 
     Integer delete(Integer departmentId);
+
 }

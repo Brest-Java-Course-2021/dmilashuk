@@ -13,7 +13,30 @@
     <packaging>war</packaging>
 
   <dependencies>
-
+    <dependency>
+      <groupId>com.epam.brest</groupId>
+      <artifactId>model</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.epam.brest</groupId>
+      <artifactId>test-db</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.epam.brest</groupId>
+      <artifactId>dao</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.epam.brest</groupId>
+      <artifactId>dao-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.epam.brest</groupId>
+      <artifactId>service-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.epam.brest</groupId>
+      <artifactId>service</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
@@ -34,7 +57,6 @@
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
     </dependency>
-
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>

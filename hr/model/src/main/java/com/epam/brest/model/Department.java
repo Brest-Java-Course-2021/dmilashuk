@@ -1,4 +1,6 @@
-package com.epam.brest;
+package com.epam.brest.model;
+
+import java.util.Objects;
 
 public class Department {
 
@@ -28,6 +30,20 @@ public class Department {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Department)) return false;
+        Department that = (Department) o;
+        return Objects.equals(departmentId, that.departmentId) &&
+                Objects.equals(departmentName, that.departmentName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(departmentId, departmentName);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.epam.brest;
+package com.epam.brest.model;
 
 public class Main {
     public static void main(String[] args) {

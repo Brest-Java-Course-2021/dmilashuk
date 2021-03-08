@@ -1,14 +1,15 @@
-package impl;
+package com.epam.brest.service.impl;
 
 
-import com.epam.brest.Department;
-import com.epam.brest.daoApi.DepartmentDao;
+import com.epam.brest.model.Department;
+import com.epam.brest.dao.DepartmentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import service.DepartmentService;
+import com.epam.brest.service.DepartmentService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -28,6 +29,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<Department> findAll() {
         return departmentDao.findAll();
+    }
+
+    @Override
+    public Map<Department, Double> findWithAverageSalary() {
+        return departmentDao.findWithAverageSalary();
     }
 
     @Override

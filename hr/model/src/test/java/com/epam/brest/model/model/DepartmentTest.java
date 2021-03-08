@@ -1,6 +1,6 @@
-package com.epam.brest.model;
+package com.epam.brest.model.model;
 
-import com.epam.brest.Department;
+import com.epam.brest.model.Department;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -54,7 +54,6 @@
         </div>
     </nav>
 </header>
-
 <section id="departments">
     <div class="container-fluid">
         <div class="row">
@@ -69,97 +68,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>CEO</td>
+                        <tr th:each="department : ${departments}">
+                            <td th:text="${department.getDepartmentName()}"></td>
                             <td>10000</td>
                             <td class="text-end">
                                 <a href="department.html"
                                    th:href="@{/department/1}"
-                                   class="btn-sm btn-outline-secondary"
-                                   title="Edit department">
-                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                    <a href="#" class="btn-sm btn-outline-secondary"
-                                       title="delete department"><i class="bi-x"></i><span
-                                            class="d-none d-md-inline">&nbsp;Delete</span>
-                                    </a>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;&nbsp;Accounting</td>
-                            <td>2500</td>
-                            <td class="text-end">
-                                <a href="department.html"
-                                   th:href="@{/department/2}"
-                                   class="btn-sm btn-outline-secondary"
-                                   title="Edit department">
-                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                    <a href="#" class="btn-sm btn-outline-secondary"
-                                       title="delete department"><i class="bi-x"></i><span
-                                            class="d-none d-md-inline">&nbsp;Delete</span>
-                                    </a>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;&nbsp;Development</td>
-                            <td>1150</td>
-                            <td class="text-end">
-                                <a href="department.html"
-                                   th:href="@{/department}"
-                                   class="btn-sm btn-outline-secondary"
-                                   title="Edit department">
-                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                    <a href="#" class="btn-sm btn-outline-secondary"
-                                       title="delete department"><i class="bi-x"></i><span
-                                            class="d-none d-md-inline">&nbsp;Delete</span>
-                                    </a>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;Java</td>
-                            <td>1500</td>
-                            <td class="text-end">
-                                <a href="department.html"
-                                   th:href="@{/department}"
-                                   class="btn-sm btn-outline-secondary"
-                                   title="Edit department">
-                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                    <a href="#" class="btn-sm btn-outline-secondary"
-                                       title="delete department"><i class="bi-x"></i><span
-                                            class="d-none d-md-inline">&nbsp;Delete</span>
-                                    </a>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;Testing</td>
-                            <td>1100</td>
-                            <td class="text-end">
-                                <a href="department.html"
-                                   th:href="@{/department}"
-                                   class="btn-sm btn-outline-secondary"
-                                   title="Edit department">
-                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                    <a href="#" class="btn-sm btn-outline-secondary"
-                                       title="delete department"><i class="bi-x"></i><span
-                                            class="d-none d-md-inline">&nbsp;Delete</span>
-                                    </a>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;&nbsp;People management</td>
-                            <td>800</td>
-                            <td class="text-end">
-                                <a href="department.html"
-                                   th:href="@{/department}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit department">
                                     <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>

@@ -15,7 +15,6 @@
             <groupId>com.epam.brest</groupId>
             <artifactId>model</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.epam.brest</groupId>
             <artifactId>dao-api</artifactId>

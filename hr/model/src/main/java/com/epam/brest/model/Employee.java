@@ -1,27 +1,35 @@
-package com.epam.brest;
+package com.epam.brest.model;
 
 public class Employee {
 
-    private Integer id;
+    private Integer employeeId;
 
     private String firstName;
 
     private String lastName;
 
-    private String email;
+    private String eMail;
 
     private Double salary;
 
     private Integer departmentId;
 
+    public Employee(){}
 
-
-    public Integer getId() {
-        return id;
+    public Employee(String firstName, String lastName, String eMail, Double salary, Integer departmentId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.eMail = eMail;
+        this.salary = salary;
+        this.departmentId = departmentId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getFirstName() {
@@ -40,12 +48,12 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String geteMail() {
+        return eMail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
     }
 
     public Double getSalary() {
@@ -67,10 +75,10 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
+                "id=" + employeeId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
+                ", email='" + eMail + '\'' +
                 ", salary=" + salary +
                 ", departmentId=" + departmentId +
                 '}';

@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/departments")
 public class DepartmentController {
 
-    private final DepartmentServiceImpl departmentServiceImpl;
+    private final DepartmentServiceImpl departmentService;
 
     @Autowired
     DepartmentController(DepartmentServiceImpl departmentServiceImpl){
-        this.departmentServiceImpl = departmentServiceImpl;
+        this.departmentService = departmentServiceImpl;
     }
 
     @GetMapping
     public final String departments(Model model) {
-        model.addAttribute("departments", departmentServiceImpl.findWithAverageSalary());
+        model.addAttribute("departments", departmentService.findWithAverageSalary());
         return "departments";
     }
 
@@ -34,7 +34,7 @@ public class DepartmentController {
 
     @PostMapping
     public final String create(@ModelAttribute Department department){
-        departmentServiceImpl.create(department);
+        departmentService.create(department);
         return "redirect:/departments";
     }
 
@@ -42,9 +42,8 @@ public class DepartmentController {
     public final String goToEditDepartmentPage(@PathVariable Integer id,
                                                Model model) {
         model.addAttribute("tittle","Edit department");
-        Department department = departmentServiceImpl.findById(id).orElseThrow();
+        Department department = departmentService.findById(id).orElseThrow();
         model.addAttribute(department);
-/*        model.addAttribute("url","/" + department.getDepartmentId());*/
         model.addAttribute("method","PUT");
         return "department";
     }
@@ -53,13 +52,13 @@ public class DepartmentController {
     public final String create(@PathVariable Integer id,
                                @ModelAttribute Department department){
         department.setDepartmentId(id);
-        departmentServiceImpl.update(department);
+        departmentService.update(department);
         return "redirect:/departments";
     }
 
     @DeleteMapping("/{id}")
     public final String delete (@PathVariable Integer id){
-        departmentServiceImpl.delete(id);
+        departmentService.delete(id);
         return "redirect:/departments";
     }
 }

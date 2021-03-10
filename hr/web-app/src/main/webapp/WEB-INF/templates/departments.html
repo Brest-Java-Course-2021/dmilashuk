@@ -26,11 +26,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="departments.html"
+                        <a class="nav-link active"
                            th:href="@{/departments}">Departments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="employees.html"
+                        <a class="nav-link"
                            th:href="@{/employees}">Employees</a>
                     </li>
                 </ul>
@@ -43,8 +43,7 @@
             <span class="navbar-brand text-uppercase">Departments</span>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="department.html"
-                       th:href="@{/departments/new}"
+                    <a th:href="@{/departments/new}"
                        class="btn btn-light"
                        title="Add department">
                         <i class="bi-plus"></i>&nbsp;<span class="d-none d-sm-inline">Add</span>
@@ -72,8 +71,7 @@
                             <td th:text="${department.getKey().getDepartmentName()}"></td>
                             <td th:text="${department.getValue()}"></td>
                             <td class="text-end">
-                                <a href="department.html"
-                                   th:href="@{/departments/{id}/edit(id = ${department.getKey().getDepartmentId()})}"
+                                <a th:href="@{/departments/{id}/edit(id = ${department.getKey().getDepartmentId()})}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit department">
                                     <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
@@ -112,7 +110,9 @@
             </div>
             <div class="modal-footer">
                 <a th:href="@{/departments}" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <form>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
             </div>
         </div>
     </div>

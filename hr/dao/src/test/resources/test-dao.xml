@@ -23,8 +23,4 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-        <property name="location" value="classpath:dao.properties"/>
-    </bean>
-
 </beans>

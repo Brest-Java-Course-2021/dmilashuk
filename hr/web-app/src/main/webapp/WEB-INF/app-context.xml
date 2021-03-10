@@ -12,15 +12,13 @@
 
     <!-- Use spring servlet for all requests, including static resources -->
     <mvc:default-servlet-handler/>
-
     <!-- Use @MVC annotations -->
     <mvc:annotation-driven/>
 
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/,/WEB-INF/"/>
 
     <!-- Component scan for @Controller, @Service... annotations -->
     <context:component-scan base-package="com.epam.brest*"/>
-    <import resource="classpath:test-db.xml"/>
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"
           class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
@@ -48,23 +46,4 @@
         <property name="characterEncoding" value="UTF-8" />
     </bean>
 
-    <bean id="template" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-
-    <bean id="departmentDao" class="com.epam.brest.dao.jdbc.DepartmentDaoJdbc">
-        <constructor-arg ref="template"/>
-    </bean>
-
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-
-    <bean id="departmentServiceImpl" class="com.epam.brest.service.impl.DepartmentServiceImpl">
-        <constructor-arg ref="departmentDao"/>
-    </bean>
-
-    <jdbc:initialize-database>
-        <jdbc:script location="classpath:init-test-db.sql"/>
-    </jdbc:initialize-database>
 </beans>

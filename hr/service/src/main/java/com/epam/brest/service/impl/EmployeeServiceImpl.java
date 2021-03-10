@@ -16,6 +16,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     EmployeeDao employeeDao;
 
+    public EmployeeServiceImpl(EmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
+    }
+
     @Override
     public List<Employee> findAll() {
         return employeeDao.findAll();

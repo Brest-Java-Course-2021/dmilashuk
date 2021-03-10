@@ -44,7 +44,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="department.html"
-                       th:href="@{/department/add}"
+                       th:href="@{/departments/new}"
                        class="btn btn-light"
                        title="Add department">
                         <i class="bi-plus"></i>&nbsp;<span class="d-none d-sm-inline">Add</span>
@@ -69,16 +69,16 @@
                         </thead>
                         <tbody>
                         <tr th:each="department : ${departments}">
-                            <td th:text="${department.getDepartmentName()}"></td>
-                            <td>10000</td>
+                            <td th:text="${department.getKey().getDepartmentName()}"></td>
+                            <td th:text="${department.getValue()}"></td>
                             <td class="text-end">
                                 <a href="department.html"
-                                   th:href="@{/department/1}"
+                                   th:href="@{/departments/{id}/edit(id = ${department.getKey().getDepartmentId()})}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit department">
                                     <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
                                 <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                    <a href="#" class="btn-sm btn-outline-secondary"
+                                    <a class="btn-sm btn-outline-secondary"
                                        title="delete department"><i class="bi-x"></i><span
                                             class="d-none d-md-inline">&nbsp;Delete</span>
                                     </a>
@@ -111,7 +111,7 @@
                 Please confirm delete
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a th:href="@{/departments}" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
                 <button type="button" class="btn btn-danger">Delete</button>
             </div>
         </div>

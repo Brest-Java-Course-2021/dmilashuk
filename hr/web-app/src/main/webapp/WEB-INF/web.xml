@@ -6,7 +6,9 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value></param-value>
+        <param-value>
+            /WEB-INF/rootConfig.xml
+        </param-value>
     </context-param>
 
     <servlet>
@@ -23,5 +25,15 @@
         <servlet-name>app</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <servlet-name>app</servlet-name>
+    </filter-mapping>
 
 </web-app>

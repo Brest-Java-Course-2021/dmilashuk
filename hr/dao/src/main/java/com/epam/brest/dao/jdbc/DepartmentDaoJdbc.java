@@ -1,10 +1,11 @@
 package com.epam.brest.dao.jdbc;
 
-import com.epam.brest.model.Department;
 import com.epam.brest.dao.DepartmentDao;
+import com.epam.brest.model.Department;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,38 +14,42 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+@Repository
+@PropertySource("classpath:dao.properties")
 public class DepartmentDaoJdbc implements DepartmentDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentDaoJdbc.class);
 
     @Value("${sql.getAllDepartments}")
-    private String sqlGetAllDepartments;
+    private String sqlGetAllDepartments="SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME FROM DEPARTMENT AS D ORDER BY D.DEPARTMENT_ID";
 
     @Value("${sql.getAllDepartmentsWithAverageSalaries}")
-    private String sqlGetAllDepartmentsWithAverageSalaries;
+    private String sqlGetAllDepartmentsWithAverageSalaries ="SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME,  COALESCE (AVG(E.SALARY), 0) AS AVG " +
+            "FROM DEPARTMENT D LEFT JOIN EMPLOYEE E ON D.DEPARTMENT_ID = E.DEPARTMENT_ID GROUP BY D.DEPARTMENT_ID ORDER BY D.DEPARTMENT_ID";
 
     @Value("${sql.findDepartmentById}")
-    private String sqlFindDepartmentById;
+    private String sqlFindDepartmentById="SELECT * FROM DEPARTMENT WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
 
     @Value("${sql.createDepartment}")
-    private String sqlCreateDepartment;
+    private String sqlCreateDepartment="INSERT INTO DEPARTMENT (DEPARTMENT_NAME) VALUES (:DEPARTMENT_NAME)";
 
     @Value("${sql.deleteDepartment}")
-    private String sqlDeleteDepartment;
+    private String sqlDeleteDepartment="DELETE FROM DEPARTMENT WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
 
     @Value("${sql.updateDepartment}")
-    private String sqlUpdateDepartment;
+    private String sqlUpdateDepartment="UPDATE DEPARTMENT SET DEPARTMENT_NAME = :DEPARTMENT_NAME WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
 
     @Value("${sql.checkingDepartmentName}")
-    private String sqlCheckingDepartmentName;
+    private String sqlCheckingDepartmentName="SELECT COUNT(DEPARTMENT_ID) FROM DEPARTMENT WHERE lower(DEPARTMENT_NAME) = lower(:DEPARTMENT_NAME)";
 
     @Value("${sql.checkingThatDepartmentIsEmpty}")
-    private String sqlCheckingThatDepartmentIsEmpty;
+    private String sqlCheckingThatDepartmentIsEmpty="SELECT COUNT(EMPLOYEE_ID) FROM EMPLOYEE WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
 
     private final NamedParameterJdbcTemplate template;
 

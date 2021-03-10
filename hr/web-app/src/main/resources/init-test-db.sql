@@ -1,4 +1,0 @@
-INSERT INTO DEPARTMENT (DEPARTMENT_NAME)
-VALUES ( 'IT' ),
-       ( 'SECURITY' ),
-       ( 'HR' );

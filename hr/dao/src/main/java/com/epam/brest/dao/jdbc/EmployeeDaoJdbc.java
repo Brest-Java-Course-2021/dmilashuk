@@ -5,6 +5,7 @@ import com.epam.brest.model.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,11 +14,14 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Repository
+@PropertySource("classpath:dao.properties")
 public class EmployeeDaoJdbc implements EmployeeDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeDaoJdbc.class);
@@ -25,22 +29,25 @@ public class EmployeeDaoJdbc implements EmployeeDao {
     private final NamedParameterJdbcTemplate template;
 
     @Value("${sql.getAllEmployees}")
-    private String sqlGetAllEmployees;
+    private String sqlGetAllEmployees="SELECT * FROM EMPLOYEE ORDER BY EMPLOYEE_ID";
 
     @Value("${sql.findEmployeeById}")
-    private String sqlFindEmployeeById;
+    private String sqlFindEmployeeById="SELECT * FROM EMPLOYEE WHERE EMPLOYEE_ID = :EMPLOYEE_ID";
 
     @Value("${sql.createEmployee}")
-    private String sqlCreateEmployee;
+    private String sqlCreateEmployee="INSERT INTO EMPLOYEE (FIRST_NAME,LAST_NAME,E_MAIL,SALARY,DEPARTMENT_ID) " +
+            "VALUES (:FIRST_NAME,:LAST_NAME,:E_MAIL,:SALARY,:DEPARTMENT_ID)";
 
     @Value("${sql.updateEmployee}")
-    private String sqlUpdateEmployee;
+    private String sqlUpdateEmployee="UPDATE EMPLOYEE SET FIRST_NAME = :FIRST_NAME, LAST_NAME = :LAST_NAME," +
+            " E_MAIL = :E_MAIL, SALARY = :SALARY, DEPARTMENT_ID = :DEPARTMENT_ID";
 
     @Value("${sql.deleteEmployee}")
-    private String sqlDeleteEmployee;
+    private String sqlDeleteEmployee ="DELETE FROM EMPLOYEE WHERE EMPLOYEE_ID = :EMPLOYEE_ID";
 
     @Value("${sql.checkingThatEmployeeIsValid}")
-    private String sqlCheckingThatEmployeeIsValid;
+    private String sqlCheckingThatEmployeeIsValid="SELECT COUNT(EMPLOYEE_ID) FROM EMPLOYEE WHERE " +
+            "lower(FIRST_NAME) = lower(:FIRST_NAME) AND lower(LAST_NAME) = lower(:LAST_NAME)";
 
     private final RowMapper<Employee> employeeRowMapper = BeanPropertyRowMapper.newInstance(Employee.class);
 

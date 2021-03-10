@@ -19,10 +19,6 @@
     </dependency>
     <dependency>
       <groupId>com.epam.brest</groupId>
-      <artifactId>test-db</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.epam.brest</groupId>
       <artifactId>dao</artifactId>
     </dependency>
     <dependency>

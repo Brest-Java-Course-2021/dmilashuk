@@ -29,25 +29,22 @@ public class EmployeeDaoJdbc implements EmployeeDao {
     private final NamedParameterJdbcTemplate template;
 
     @Value("${sql.getAllEmployees}")
-    private String sqlGetAllEmployees="SELECT * FROM EMPLOYEE ORDER BY EMPLOYEE_ID";
+    private String sqlGetAllEmployees;
 
     @Value("${sql.findEmployeeById}")
-    private String sqlFindEmployeeById="SELECT * FROM EMPLOYEE WHERE EMPLOYEE_ID = :EMPLOYEE_ID";
+    private String sqlFindEmployeeById;
 
     @Value("${sql.createEmployee}")
-    private String sqlCreateEmployee="INSERT INTO EMPLOYEE (FIRST_NAME,LAST_NAME,E_MAIL,SALARY,DEPARTMENT_ID) " +
-            "VALUES (:FIRST_NAME,:LAST_NAME,:E_MAIL,:SALARY,:DEPARTMENT_ID)";
+    private String sqlCreateEmployee;
 
     @Value("${sql.updateEmployee}")
-    private String sqlUpdateEmployee="UPDATE EMPLOYEE SET FIRST_NAME = :FIRST_NAME, LAST_NAME = :LAST_NAME," +
-            " E_MAIL = :E_MAIL, SALARY = :SALARY, DEPARTMENT_ID = :DEPARTMENT_ID";
+    private String sqlUpdateEmployee;
 
     @Value("${sql.deleteEmployee}")
-    private String sqlDeleteEmployee ="DELETE FROM EMPLOYEE WHERE EMPLOYEE_ID = :EMPLOYEE_ID";
+    private String sqlDeleteEmployee;
 
     @Value("${sql.checkingThatEmployeeIsValid}")
-    private String sqlCheckingThatEmployeeIsValid="SELECT COUNT(EMPLOYEE_ID) FROM EMPLOYEE WHERE " +
-            "lower(FIRST_NAME) = lower(:FIRST_NAME) AND lower(LAST_NAME) = lower(:LAST_NAME)";
+    private String sqlCheckingThatEmployeeIsValid;
 
     private final RowMapper<Employee> employeeRowMapper = BeanPropertyRowMapper.newInstance(Employee.class);
 

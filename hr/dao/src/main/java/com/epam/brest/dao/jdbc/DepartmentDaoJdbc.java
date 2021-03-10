@@ -27,29 +27,28 @@ public class DepartmentDaoJdbc implements DepartmentDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentDaoJdbc.class);
 
     @Value("${sql.getAllDepartments}")
-    private String sqlGetAllDepartments="SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME FROM DEPARTMENT AS D ORDER BY D.DEPARTMENT_ID";
+    private String sqlGetAllDepartments;
 
     @Value("${sql.getAllDepartmentsWithAverageSalaries}")
-    private String sqlGetAllDepartmentsWithAverageSalaries ="SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME,  COALESCE (AVG(E.SALARY), 0) AS AVG " +
-            "FROM DEPARTMENT D LEFT JOIN EMPLOYEE E ON D.DEPARTMENT_ID = E.DEPARTMENT_ID GROUP BY D.DEPARTMENT_ID ORDER BY D.DEPARTMENT_ID";
+    private String sqlGetAllDepartmentsWithAverageSalaries;
 
     @Value("${sql.findDepartmentById}")
-    private String sqlFindDepartmentById="SELECT * FROM DEPARTMENT WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
+    private String sqlFindDepartmentById;
 
     @Value("${sql.createDepartment}")
-    private String sqlCreateDepartment="INSERT INTO DEPARTMENT (DEPARTMENT_NAME) VALUES (:DEPARTMENT_NAME)";
+    private String sqlCreateDepartment;
 
     @Value("${sql.deleteDepartment}")
-    private String sqlDeleteDepartment="DELETE FROM DEPARTMENT WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
+    private String sqlDeleteDepartment;
 
     @Value("${sql.updateDepartment}")
-    private String sqlUpdateDepartment="UPDATE DEPARTMENT SET DEPARTMENT_NAME = :DEPARTMENT_NAME WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
+    private String sqlUpdateDepartment;
 
     @Value("${sql.checkingDepartmentName}")
-    private String sqlCheckingDepartmentName="SELECT COUNT(DEPARTMENT_ID) FROM DEPARTMENT WHERE lower(DEPARTMENT_NAME) = lower(:DEPARTMENT_NAME)";
+    private String sqlCheckingDepartmentName;
 
     @Value("${sql.checkingThatDepartmentIsEmpty}")
-    private String sqlCheckingThatDepartmentIsEmpty="SELECT COUNT(EMPLOYEE_ID) FROM EMPLOYEE WHERE DEPARTMENT_ID = :DEPARTMENT_ID";
+    private String sqlCheckingThatDepartmentIsEmpty;
 
     private final NamedParameterJdbcTemplate template;
 
